@@ -1,0 +1,27 @@
+name: gnome-arch
+channel: desktop
+long_name: GNOME Arch
+home_url: http://papyros.io
+support_url: https://github.com/papyros/papyros/
+bug_report_url: https://github.com/papyros/papyros/issues
+ansi_color: 0;36
+packages:
+  - ostree
+  - flatpak
+  - gnome
+  - gnome-software
+  - gnome-initial-setup
+  - mesa
+  - mesa-vdpau
+  - xf86-input-synaptics
+  - xf86-video-ati
+  - xf86-video-fbdev
+  - xf86-video-intel
+  - xf86-video-nouveau
+  - xf86-video-openchrome
+  - xf86-video-vesa
+  - xf86-video-vmware
+  - xorg-server
+  - xorg-server-utils
+display_manager: gdm
+hostname: gnome-arch
