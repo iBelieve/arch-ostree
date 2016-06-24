@@ -52,7 +52,9 @@ rm "$os_dir"/etc/pacman.d/gnupg/S.gpg-agent
 
 mkdir -p "$os_dir"/usr/etc/
 mkdir -p "$os_dir"/sysroot
-mkdir -p "$os_dir"/mnt
+mkdir -p "$os_dir"/var/mnt
+mkdir -p "$os_dir"/var/srv
+mkdir -p "$os_dir"/var/opt
 
 rmdir "$os_dir"/{home,opt,root,mnt} || true
 rsync -av "$os_dir"/etc "$os_dir"/usr/etc/
