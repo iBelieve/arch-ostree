@@ -24,7 +24,7 @@ class Pacstrap(object):
             command = ['pacstrap', '-cd', self.workdir, 'base', 'base-devel'] + packages
 
         # TODO: Make install_dir first
-        run(command, arch=self.arch, capture_stdout=False)
+        run(command, arch=self.arch, capture_stdout=False, sudo=True)
 
     def run(self, cmd, workdir=None):
         if workdir:

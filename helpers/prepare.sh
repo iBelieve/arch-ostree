@@ -48,7 +48,7 @@ mv "$boot_dir"/vmlinuz-* "$boot_dir"/vmlinuz-$checksum
 # Clean up the directory structure
 
 # Doesn't seem to be needed any more...
-# rm "$os_dir"/etc/pacman.d/gnupg/S.gpg-agent
+rm "$os_dir"/etc/pacman.d/gnupg/S.gpg-agent
 
 mkdir -p "$os_dir"/usr/etc/
 mkdir -p "$os_dir"/sysroot
@@ -64,10 +64,10 @@ ln -s var/roothome "$os_dir"/root
 
 chmod a+rX "$os_dir"/{bin,boot,lib,sysroot,usr,var}
 
-cat << EOF > "$os_dir"/usr/etc/fstab
-LABEL=$OSNAME-boot /boot ext4 rw,relatime,data=ordered 0 2
-LABEL=$OSNAME-root / ext4 rw,relatime,data=ordered 0 1
-EOF
+# cat << EOF > "$os_dir"/usr/etc/fstab
+# LABEL=$OSNAME-boot /boot ext4 rw,relatime,data=ordered 0 2
+# LABEL=$OSNAME-root / ext4 rw,relatime,data=ordered 0 1
+# EOF
 
 cat << EOF > "$os_dir"/usr/lib/tmpfiles.d/ostree.conf
 d /var/log/journal 0755 root root -

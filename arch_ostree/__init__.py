@@ -1,1 +1,1 @@
-from ostree import OSTree
+from .ostree import OSTree
