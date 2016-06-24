@@ -56,9 +56,8 @@ mkdir -p "$os_dir"/var/mnt
 mkdir -p "$os_dir"/var/srv
 mkdir -p "$os_dir"/var/opt
 
-rmdir "$os_dir"/{home,opt,root,mnt} || true
 rsync -av "$os_dir"/etc "$os_dir"/usr/etc/
-rm -rf "$os_dir"/etc
+rm -rf "$os_dir"/{home,opt,root,mnt,etc}
 
 ln -s sysroot/ostree "$os_dir"/ostree
 ln -s sysroot/tmp "$os_dir"/tmp
