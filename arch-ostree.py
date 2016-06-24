@@ -21,6 +21,7 @@ if __name__ == '__main__':
 
     branch = sys.argv[2]
     build_number = sys.argv[3]
+    repo_dir = sys.argv[4] if len(sys.argv) > 4 else 'ostree'
 
     ostree = OSTree(config['name'], 'pacstrap', 'x86_64')
     ostree.create(config['packages'])
@@ -28,4 +29,4 @@ if __name__ == '__main__':
     if 'display_manager' in config:
         ostree.enable_service(config['display_manager'])
     ostree.prepare()
-    ostree.commit('ostree', branch, config['channel'], build_number)
+    ostree.commit(repo_dir, branch, config['channel'], build_number)
