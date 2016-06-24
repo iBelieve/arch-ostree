@@ -60,9 +60,13 @@ rm -rf "$os_dir"/etc
 ln -s sysroot/ostree "$os_dir"/ostree
 ln -s sysroot/tmp "$os_dir"/tmp
 ln -s var/home "$os_dir"/home
+ln -s var/opt "$os_dir"/opt
+ln -s var/srv "$os_dir"/srv
+ln -s var/mnt "$os_dir"/mnt
+ln -s var/local "$os_dir"/usr/local
 ln -s var/roothome "$os_dir"/root
 
-chmod a+rX "$os_dir"/{bin,boot,lib,sysroot,usr,var}
+chmod a+rX "$os_dir"/{bin,boot,lib,sysroot,usr,var,opt,srv,mnt}
 
 # cat << EOF > "$os_dir"/usr/etc/fstab
 # LABEL=$OSNAME-boot /boot ext4 rw,relatime,data=ordered 0 2
@@ -72,6 +76,19 @@ chmod a+rX "$os_dir"/{bin,boot,lib,sysroot,usr,var}
 cat << EOF > "$os_dir"/usr/lib/tmpfiles.d/ostree.conf
 d /var/log/journal 0755 root root -
 L /var/home - - - - ../sysroot/home
+d /var/opt 0755 root root -
+d /var/srv 0755 root root -
 d /var/roothome 0700 root root -
-d /var/lib 0755 root root -
+d /var/local 0755 root root -
+d /var/local/bin 0755 root root -
+d /var/local/etc 0755 root root -
+d /var/local/games 0755 root root -
+d /var/local/include 0755 root root -
+d /var/local/lib 0755 root root -
+d /var/local/man 0755 root root -
+d /var/local/sbin 0755 root root -
+d /var/local/share 0755 root root -
+d /var/local/src 0755 root root -
+d /var/mnt 0755 root root -
+d /run/media 0755 root root -
 EOF
