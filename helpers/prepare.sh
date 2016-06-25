@@ -46,10 +46,10 @@ no_dir() {
     rm -rf $path
 }
 
-sync() {
+move() {
     path1="$os_dir"$1
     path2="$os_dir"$2
-    rsync -av $path1 $path2
+    mv $path1 $path2
 }
 
 setup_boot() {
@@ -77,7 +77,7 @@ setup_sysroot() {
 
 move_etc() {
     dir /usr/etc
-    sync /etc /usr/etc
+    move /etc/* /usr/etc/
     no_dir /etc
 }
 
