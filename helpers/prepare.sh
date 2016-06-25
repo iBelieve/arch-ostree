@@ -122,7 +122,7 @@ post_cleanup() {
 }
 
 summary() {
-    ls "$os_dir"/{,root,var,usr,etc}
+    ls "$os_dir"/{,root,var,usr,usr/etc}
 }
 
 pre_cleanup
