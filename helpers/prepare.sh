@@ -46,12 +46,6 @@ no_dir() {
     rm -rf $path
 }
 
-move() {
-    path1="$os_dir"$1
-    path2="$os_dir"$2
-    mv $path1 $path2
-}
-
 setup_boot() {
     kernel_version=$(pacman -r "$os_dir" -Q linux | cut -d' ' -f 2)-ARCH
 
@@ -77,7 +71,7 @@ setup_sysroot() {
 
 move_etc() {
     dir /usr/etc
-    move /etc/* /usr/etc/
+    mv $os_dir/etc/* $os_dir/usr/etc/
     no_dir /etc
 }
 
