@@ -93,24 +93,24 @@ setup_links() {
 
 setup_tmpfiles() {
     cat << EOF > "$os_dir"/usr/lib/tmpfiles.d/ostree.conf
-    d /var/log/journal 0755 root root -
-    L /var/home - - - - ../sysroot/home
-    d /var/opt 0755 root root -
-    d /var/srv 0755 root root -
-    d /var/roothome 0700 root root -
-    d /var/local 0755 root root -
-    d /var/local/bin 0755 root root -
-    d /var/local/etc 0755 root root -
-    d /var/local/games 0755 root root -
-    d /var/local/include 0755 root root -
-    d /var/local/lib 0755 root root -
-    d /var/local/man 0755 root root -
-    d /var/local/sbin 0755 root root -
-    d /var/local/share 0755 root root -
-    d /var/local/src 0755 root root -
-    d /var/mnt 0755 root root -
-    d /run/media 0755 root root -
-    EOF
+d /var/log/journal 0755 root root -
+L /var/home - - - - ../sysroot/home
+d /var/opt 0755 root root -
+d /var/srv 0755 root root -
+d /var/roothome 0700 root root -
+d /var/local 0755 root root -
+d /var/local/bin 0755 root root -
+d /var/local/etc 0755 root root -
+d /var/local/games 0755 root root -
+d /var/local/include 0755 root root -
+d /var/local/lib 0755 root root -
+d /var/local/man 0755 root root -
+d /var/local/sbin 0755 root root -
+d /var/local/share 0755 root root -
+d /var/local/src 0755 root root -
+d /var/mnt 0755 root root -
+d /run/media 0755 root root -
+EOF
 }
 
 pre_cleanup() {
