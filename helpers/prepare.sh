@@ -118,7 +118,7 @@ pre_cleanup() {
 }
 
 post_cleanup() {
-    chmod a+rX "$os_dir"/{bin,boot,lib,sysroot,usr,var,opt,srv,mnt}
+    chmod a+rX "$os_dir"/{bin,boot,lib,sysroot,usr,var}
 }
 
 summary() {
