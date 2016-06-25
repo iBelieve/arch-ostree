@@ -29,26 +29,26 @@ arch=$3
 
 # link /dir -> real_dir
 link() {
-    path = "os_dir"$1
+    path="os_dir"$1
     rm -r $path || true
     ln -s $2 $path
 }
 
 # dir /dir
 dir() {
-    path = "os_dir"$1
+    path="os_dir"$1
     mkdir -p $path
 }
 
 # no_dir /dir
 no_dir() {
-    path = "os_dir"$1
+    path="os_dir"$1
     rm -rf $path
 }
 
 sync() {
-    path1 = "os_dir"$1
-    path2 = "os_dir"$2
+    path1="os_dir"$1
+    path2="os_dir"$2
     rsync -av $path1 $path2
 }
 
