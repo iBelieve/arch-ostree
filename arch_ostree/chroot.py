@@ -1,6 +1,7 @@
 import os.path
 
-from .helpers import systemd_nspawn, put
+from .utils import put
+from .helpers import systemd_nspawn
 
 
 class Chroot(object):
