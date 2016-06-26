@@ -26,6 +26,7 @@ if __name__ == '__main__':
     ostree = OSTree(config['name'], 'pacstrap', 'x86_64')
     ostree.create(config['packages'])
     ostree.install_release(os_release_template.format(**config))
+    ostree.install_aur(config.get('aur_packages', []))
     for service in config.get('services', []):
         ostree.enable_service(service)
     ostree.prepare()

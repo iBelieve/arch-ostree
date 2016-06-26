@@ -19,11 +19,21 @@ class Pacstrap(object):
         os.makedirs(self.workdir)
 
         if conf_file:
-            command = ['pacstrap', '-cdC', conf_file, self.workdir, 'base', 'base-devel'] + packages
+            command = ['pacstrap', '-cdC', conf_file, self.workdir, 'base',
+                       'base-devel'] + packages
         else:
-            command = ['pacstrap', '-cd', self.workdir, 'base', 'base-devel'] + packages
+            command = ['pacstrap', '-cd', self.workdir, 'base',
+                       'base-devel'] + packages
 
         # TODO: Make install_dir first
+        run(command, arch=self.arch, capture_stdout=False, sudo=True)
+
+    def install_aur(self, packages):
+        if len(packages) == 0:
+            return
+
+        command = ['yaourt', '-S', '--noconfirm'] + packages
+
         run(command, arch=self.arch, capture_stdout=False, sudo=True)
 
     def run(self, cmd, workdir=None):
