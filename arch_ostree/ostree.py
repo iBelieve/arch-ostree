@@ -17,13 +17,12 @@ class OSTree(Pacstrap):
 
     def prepare(self):
         helper('prepare.sh', [os.path.abspath(self.workdir), self.name,
-                              bits(self.arch)],
-               self.workdir)
+                              bits(self.arch)], self.workdir, sudo=True)
 
     def commit(self, ostree_dir, branch, channel, build_number):
         if not os.path.exists(ostree_dir):
             run(['ostree', '--repo=' + ostree_dir, 'init', '--mode',
-                 'archive-z2'])
+                 'archive-z2'], sudo=True)
 
         branch = '{name}/{branch}/{arch}/{channel}'.format(name=self.name,
                                                            branch=branch,
@@ -35,4 +34,4 @@ class OSTree(Pacstrap):
         run(['sudo', 'ostree', '--repo=' + ostree_dir, 'commit',
              '--tree=dir=' + self.workdir,
              '--branch=' + branch,
-             '--subject', commit_message])
+             '--subject', commit_message], sudo=True)
