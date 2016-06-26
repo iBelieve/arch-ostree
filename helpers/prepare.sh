@@ -46,11 +46,20 @@ no_dir() {
     rm -rf $path
 }
 
+replace() {
+    path="$os_dir"$2
+    sed "$1" < $path > /tmp/replaced
+    mv /tmp/replaced $path
+}
+
+spawn() {
+    linux${arch} systemd-nspawn -D "$os_dir" $@
+}
+
 setup_boot() {
     kernel_version=$(pacman -r "$os_dir" -Q linux | cut -d' ' -f 2)-ARCH
 
-    linux${arch} systemd-nspawn -D "$os_dir" \
-        mkinitcpio -c /etc/ostree-mkinitcpio.conf -g /boot/initramfs-linux.img \
+    spawn mkinitcpio -c /etc/ostree-mkinitcpio.conf -g /boot/initramfs-linux.img \
             -k $kernel_version -S autodetect
 
     boot_dir="$os_dir"/boot
@@ -62,6 +71,12 @@ setup_boot() {
 
     mv "$boot_dir"/initramfs-*.img "$boot_dir"/initramfs-$checksum
     mv "$boot_dir"/vmlinuz-* "$boot_dir"/vmlinuz-$checksum
+}
+
+setup_locales() {
+    replace "s/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/" /etc/locale.gen
+    spawn locale-gen
+    echo LANG=en_US.UTF-8 > "$os_dir"/etc/locale.conf
 }
 
 setup_sysroot() {
@@ -120,6 +135,7 @@ summary() {
 }
 
 pre_cleanup
+setup_locales
 setup_boot
 setup_sysroot
 move_etc
