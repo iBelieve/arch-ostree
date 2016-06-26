@@ -12,12 +12,6 @@ class OSTree(Pacstrap):
         super(OSTree, self).__init__(workdir, arch)
         self.name = name
 
-    def put(self, filename, text):
-        filename = self.workdir + filename
-
-        with open(filename, 'w') as f:
-            f.write(text)
-
     def install_release(self, release):
         self.put('/etc/release', release)
 

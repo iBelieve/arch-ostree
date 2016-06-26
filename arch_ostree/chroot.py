@@ -1,4 +1,6 @@
-from .helpers import systemd_nspawn
+import os.path
+
+from .helpers import systemd_nspawn, put
 
 
 class Chroot(object):
@@ -12,6 +14,11 @@ class Chroot(object):
             cmd = 'cd {} && {}'.format(workdir, cmd)
             cmd = (['bash', '-cil', cmd])
         systemd_nspawn(self.workdir, cmd)
+
+    def put(self, filename, text):
+        filename = os.path.join(self.workdir, filename)
+
+        put(filename, text, sudo=True)
 
     def enable_service(self, service):
         self.run(['systemctl', 'enable', service])

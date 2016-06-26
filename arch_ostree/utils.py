@@ -18,15 +18,30 @@ def run(cmd, workdir=None, capture_stdout=True, sudo=False, arch=None):
         cmd = ['sudo'] + cmd
     print(' '.join(cmd))
     if capture_stdout:
-        completion = subprocess.run(cmd, cwd=workdir, check=True, universal_newlines=True,
+        completion = subprocess.run(cmd, cwd=workdir, check=True,
+                                    universal_newlines=True,
                                     stdout=subprocess.PIPE)
         return completion.stdout.strip()
     else:
         return subprocess.run(cmd, cwd=workdir, check=True)
 
 
+def put(filename, text, sudo=False):
+    if sudo:
+        tmp_filename = '/tmp/put_file'
+
+        with open(tmp_filename, 'w') as f:
+            f.write(text)
+        run(['mv', tmp_filename, filename], capture_stdout=False,
+            sudo=True)
+    else:
+        with open(filename, 'w') as f:
+            f.write(text)
+
+
 def helper(name, args, workdir, sudo=False):
-    return run([os.path.join(base_dir, 'helpers', name)] + args, workdir=workdir, sudo=sudo)
+    return run([os.path.join(base_dir, 'helpers', name)] + args,
+               workdir=workdir, sudo=sudo)
 
 
 def load_yaml(fileName):
