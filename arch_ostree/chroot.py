@@ -27,6 +27,11 @@ class Chroot(object):
     def disable_service(self, service):
         self.run(['systemctl', 'disable', service])
 
+    def enable_sudo_access(self):
+        self.run(['sed', '-i',
+                  's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/',
+                  '/etc/sudoers'])
+
     def install_aur(self, packages):
         if len(packages) == 0:
             return

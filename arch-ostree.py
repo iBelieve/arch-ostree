@@ -27,6 +27,7 @@ if __name__ == '__main__':
     ostree.create(config['packages'])
     ostree.install_release(os_release_template.format(**config))
     ostree.install_aur(config.get('aur_packages', []))
+    ostree.enable_sudo_access()
     for service in config.get('enabled_services', []):
         ostree.enable_service(service)
     for service in config.get('disabled_services', []):
