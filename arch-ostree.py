@@ -26,7 +26,7 @@ if __name__ == '__main__':
     ostree = OSTree(config['name'], 'pacstrap', 'x86_64')
     ostree.create(config['packages'])
     ostree.install_release(os_release_template.format(**config))
-    if 'display_manager' in config:
-        ostree.enable_service(config['display_manager'])
+    for service in config.get('services', []):
+        ostree.enable_service(service)
     ostree.prepare()
     ostree.commit(repo_dir, branch, config['channel'], build_number)
