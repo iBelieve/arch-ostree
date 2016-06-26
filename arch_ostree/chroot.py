@@ -39,11 +39,11 @@ class Chroot(object):
         self.run(['mkdir', '/nobody'])
         self.run(['chmod', 'a+rw', '/nobody'])
         self.run(['bash', '-cil', 'echo "ALL ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers'])
-        self.run(['sed', '-i', 's#nobody:x:99:99:nobody:/:/usr/bin/nologin#nobody:x:99:99:nobody:/nobody:/usr/bin/nologin#'], '/etc/passwd')
+        self.run(['sed', '-i', 's#nobody:x:99:99:nobody:/:/usr/bin/nologin#nobody:x:99:99:nobody:/nobody:/usr/bin/nologin#', '/etc/passwd'])
 
         self.run(['sudo', '-u', 'nobody', 'yaourt', '-S',
                   '--noconfirm'] + packages)
 
         self.run(['sed', '-i', '$ d', '/etc/sudoers'])
-        self.run(['sed', '-i', 's#nobody:x:99:99:nobody:/nobody:/usr/bin/nologin#nobody:x:99:99:nobody:/:/usr/bin/nologin#'], '/etc/passwd')
+        self.run(['sed', '-i', 's#nobody:x:99:99:nobody:/nobody:/usr/bin/nologin#nobody:x:99:99:nobody:/:/usr/bin/nologin#', '/etc/passwd'])
         self.run(['rm', '-rf', '/nobody'])
