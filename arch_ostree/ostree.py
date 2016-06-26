@@ -38,6 +38,3 @@ class OSTree(Pacstrap):
              '--tree=dir=' + self.workdir,
              '--branch=' + branch,
              '--subject', commit_message])
-
-    def enable_service(self, service):
-        self.run(['systemctl', 'enable', service])

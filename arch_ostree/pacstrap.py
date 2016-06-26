@@ -1,14 +1,14 @@
 import os
 import os.path
-from .helpers import systemd_nspawn
+from .chroot import Chroot
 from .utils import run
 
 __author__ = 'Michael Spencer'
 
 
-class Pacstrap(object):
+class Pacstrap(Chroot):
     def __init__(self, workdir, arch):
-        self.workdir = workdir
+        super().__init__(workdir)
         self.arch = arch
 
     def create(self, packages, conf_file=None):
@@ -27,19 +27,3 @@ class Pacstrap(object):
 
         # TODO: Make install_dir first
         run(command, arch=self.arch, capture_stdout=False, sudo=True)
-
-    def install_aur(self, packages):
-        if len(packages) == 0:
-            return
-
-        command = ['yaourt', '-S', '--noconfirm'] + packages
-
-        run(command, arch=self.arch, capture_stdout=False, sudo=True)
-
-    def run(self, cmd, workdir=None):
-        if workdir:
-            if isinstance(cmd, list):
-                cmd = ' '.join(cmd)
-            cmd = 'cd {} && {}'.format(workdir, cmd)
-            cmd = (['bash', '-cil', cmd])
-        systemd_nspawn(self.workdir, cmd)
