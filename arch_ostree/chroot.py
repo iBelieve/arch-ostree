@@ -31,6 +31,15 @@ class Chroot(object):
         if len(packages) == 0:
             return
 
-        command = ['yaourt', '-S', '--noconfirm'] + packages
+        self.run(['sed', '-i', 's/# Defaults targetpw/Defaults targetpw/',
+                  '/etc/sudoers'])
+        self.run(['sed', '-i', 's/# ALL ALL=(ALL) ALL/ALL ALL=(ALL) ALL/',
+                  '/etc/sudoers'])
 
-        self.run(command)
+        self.run(['sudo', '-u', 'nobody', 'yaourt', '-S',
+                  '--noconfirm'] + packages)
+
+        self.run(['sed', '-i', 's/Defaults targetpw/# Defaults targetpw/',
+                  '/etc/sudoers'])
+        self.run(['sed', '-i', 's/ALL ALL=(ALL) ALL/#ALL ALL=(ALL) ALL/',
+                  '/etc/sudoers'])
