@@ -28,11 +28,15 @@ class OSTree(Pacstrap):
 
     def commit(self, ostree_dir, branch, channel, build_number):
         if not os.path.exists(ostree_dir):
-            run(['ostree', '--repo=' + ostree_dir, 'init', '--mode', 'archive-z2'])
+            run(['ostree', '--repo=' + ostree_dir, 'init', '--mode',
+                 'archive-z2'])
 
-        branch = '{name}/{branch}/{arch}/{channel}'.format(name=self.name, branch=branch,
-                                                           arch=self.arch, channel=channel)
-        commit_message = 'Build {} at {}'.format(build_number, time.strftime("%c"))
+        branch = '{name}/{branch}/{arch}/{channel}'.format(name=self.name,
+                                                           branch=branch,
+                                                           arch=self.arch,
+                                                           channel=channel)
+        commit_message = 'Build {} at {}'.format(build_number,
+                                                 time.strftime("%c"))
 
         run(['sudo', 'ostree', '--repo=' + ostree_dir, 'commit',
              '--tree=dir=' + self.workdir,
